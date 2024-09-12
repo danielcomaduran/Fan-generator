@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 707572461}
   - component: {fileID: 707572462}
   - component: {fileID: 707572463}
+  - component: {fileID: 707572464}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -617,6 +618,48 @@ MonoBehaviour:
   _lslMarkerStream: {fileID: 0}
   _lslResponseStream: {fileID: 0}
   _dontDestroyActiveInstance: 0
+--- !u!114 &707572464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707572457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0fc542aefa44840bb3889f25d6e245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selfRegister: 1
+  _selfRegisterAsActive: 0
+  targetFrameRate: 60
+  _selectableSPOs: []
+  _hotkeysEnabled: 1
+  windowLength: 1
+  interWindowInterval: 0
+  setup: {fileID: 0}
+  setupRequired: 0
+  numTrainingSelections: 0
+  numTrainWindows: 3
+  pauseBeforeTraining: 2
+  trainTargetPersistent: 0
+  trainTargetPresentationTime: 3
+  trainBreak: 1
+  shamFeedback: 0
+  trainTarget: 99
+  myTag: BCI
+  numFlashesLowerLimit: 9
+  numFlashesUpperLimit: 12
+  onTime: 0.1
+  offTime: 0.75
+  singleFlash: 1
+  multiFlash: 0
+  rowColumn: 0
+  checkerboard: 1
+  numFlashRows: 5
+  numFlashColumns: 6
+  timeDebug: 0
+  trainBufferTime: 0
 --- !u!1 &770963856
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +895,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1646496745}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 707572458}
+        m_TargetAssemblyTypeName: FanGenerator, Assembly-CSharp
+        m_MethodName: DestroyFan
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 707572458}
+        m_TargetAssemblyTypeName: FanGenerator, Assembly-CSharp
+        m_MethodName: GenerateFanShape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 707572457}
+        m_TargetAssemblyTypeName: FanGenerator, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1646496745
 MonoBehaviour:
   m_ObjectHideFlags: 0
