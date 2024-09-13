@@ -11,8 +11,6 @@ public class FanGenerator : MonoBehaviour
     public float r2;            // Outer radius
     public float columnSpacing; // Spacing between columns
     public float rowSpacing;    // Spacing between rows;
-    //public int nColumns;
-    //public int nRows;
 
     private int _maxColumns = 7;    // Max number of columns 
     private int _maxRows = 7;       // Max number of rows
@@ -66,6 +64,7 @@ public class FanGenerator : MonoBehaviour
         fan.transform.rotation = Quaternion.Euler(0, 0, 90 - (theta / 2));
     }
 
+    //private void CreateFanSegment(float startAngle, float endAngle, float innerRadius, float outerRadius, int segmentID)
     private void CreateFanSegment(GameObject fan, float startAngle, float endAngle, float innerRadius, float outerRadius, int segmentID)
     {
         GameObject segment = new GameObject("FanSegment");
@@ -110,15 +109,18 @@ public class FanGenerator : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
 
-        // Add SPO component
-        segment.AddComponent<SPO>();
-        segment.GetComponent<SPO>().ObjectID = segmentID;
-        segment.GetComponent<SPO>().Selectable = true;
-        //segment.GetComponent<SPO>().SelectablePoolIndex = segmentID;
-
         // Add Flashing effects component
         segment.AddComponent<ColorFlashEffect>();
-        //segment.GetComponent<BCIEssentials.StimulusEffects>().flashingColor = Color.red;
+
+        // Add SPO component
+        SPO spo = segment.AddComponent<SPO>();
+        spo.ObjectID = segmentID;
+        spo.Selectable = true;
+
+        spo.StartStimulusEvent.AddListener(() => segment.GetComponent<ColorFlashEffect>().SetOn());
+        spo.StopStimulusEvent.AddListener(() => segment.GetComponent<ColorFlashEffect>().SetOff());
+        spo.OnSelectedEvent.AddListener(() => segment.GetComponent<SPO>().StopStimulus());
+        spo.OnSelectedEvent.AddListener(() => segment.GetComponent<ColorFlashEffect>().Play());
     }
 
     public void DestroyFan()
