@@ -80,7 +80,7 @@ public class FanGenerator : MonoBehaviour
         Mesh mesh = new Mesh();
         meshFilter.mesh = mesh;
 
-        int segments = 10; // Number of segments to approximate the arc
+        int segments = 100; // Number of segments to approximate the arc
         int verticesCount = (segments + 1) * 2;
         Vector3[] vertices = new Vector3[verticesCount];
         int[] triangles = new int[segments * 6];
