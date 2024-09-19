@@ -6,6 +6,7 @@ using BCIEssentials.StimulusEffects;
 
 public class FanGenerator : MonoBehaviour
 {
+
     public float theta;         // Angle in degrees
     public float r1;            // Inner radius
     public float r2;            // Outer radius
@@ -35,22 +36,25 @@ public class FanGenerator : MonoBehaviour
 
     void Start()
     {
+        // Generate fan with editor settings
         GenerateFanShape();
     }
 
     public void GenerateFanShape()
     {
-        GameObject fan = new GameObject("Fan");
-        float angleStep = (theta - (_nColumns - 1) * columnSpacing) / _nColumns;
-        float radiusStep = (r2 - r1 - (_nRows - 1) * rowSpacing) / _nRows;
+        GameObject fan = gameObject;
+        fan.transform.rotation = Quaternion.identity;   // Reset rotation to default
+
+        float angleStep = (theta - (nColumns - 1) * columnSpacing) / nColumns;
+        float radiusStep = (r2 - r1 - (nRows - 1) * rowSpacing) / nRows;
         int segmentID = 0;
 
-        for (int i = 0; i < _nColumns; i++)
+        for (int i = 0; i < nColumns; i++)
         {
             float startAngle = i * (angleStep + columnSpacing);
             float endAngle = startAngle + angleStep;
 
-            for (int j = 0; j < _nRows; j++)
+            for (int j = 0; j < nRows; j++)
             {
                 float innerRadius = r1 + j * (radiusStep + rowSpacing);
                 float outerRadius = innerRadius + radiusStep;
@@ -64,7 +68,6 @@ public class FanGenerator : MonoBehaviour
         fan.transform.rotation = Quaternion.Euler(0, 0, 90 - (theta / 2));
     }
 
-    //private void CreateFanSegment(float startAngle, float endAngle, float innerRadius, float outerRadius, int segmentID)
     private void CreateFanSegment(GameObject fan, float startAngle, float endAngle, float innerRadius, float outerRadius, int segmentID)
     {
         GameObject segment = new GameObject("FanSegment");
@@ -123,12 +126,14 @@ public class FanGenerator : MonoBehaviour
         spo.OnSelectedEvent.AddListener(() => segment.GetComponent<ColorFlashEffect>().Play());
     }
 
-    public void DestroyFan()
+    public void DestroyFanSegments()
     {
-        GameObject fan = GameObject.Find("Fan");
-        if (fan != null)
+        foreach (Transform child in transform)
         {
-            Destroy(fan);
+            if (child.name == "FanSegment")
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 
